@@ -1,0 +1,17 @@
+trigger AutoCreateQuoteAndQuoteLineItem on Opportunity (after insert) {
+    for(Opportunity eachOpp: Trigger.new){
+        List <Quote> getQuote = new List <Quote> ();
+        List <QuoteLineItem> getQLI = new List <QuoteLineItem> ();
+        
+        if (eachOpp.Amount > 100000){
+            
+            Quote objQuote = new Quote(Name = 'Harsh', OpportunityId = eachOpp.Name);
+            getQuote.add(objQuote);
+            
+            QuoteLineItem objQLI = new QuoteLineItem(QuoteId = objQuote.Name);
+            getQLI.add(objQLI);
+        }
+        insert getQuote;
+        insert getQLI;
+    }
+}
